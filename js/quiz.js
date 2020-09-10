@@ -1,4 +1,6 @@
-//const { Loader } = require("./three");
+
+//import { Object3D, Geometry, BufferGeometry } from "./THREE/src/Three.js";
+
 
 let treeMeshes = [];
 let treecount = 0;
