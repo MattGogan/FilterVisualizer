@@ -1,6 +1,8 @@
-
-
 var medPanels = 0;
+
+
+console.log("filterfunctions.js loaded");
+
 
 function getInputs(){
     medPanels = document.getElementById("inpMediumPanels").value;
@@ -60,15 +62,5 @@ function repositionMediumPanels(){
     medpanels[i].position.z += i*spacing;
     medpanels[i].position.z -= .5*length;
     }
-}
-
-
-function makeMediumPanels(){
-    var spacing = length / (medPanels-1);
-    console.log("Trying to reference filters.js")
-    //NEED A WAY TO REBUILD THE MEDIUM PANELS.
-    //PROBLEM: CANNOT IMPORT 3JS HERE
-    //PROBLEM: CANNOT REFERNECE MODULE FROM HERE
-    sayHello();
 }
 
