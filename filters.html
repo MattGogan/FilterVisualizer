@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="filterstyle.css">
+    </head>
+
+    <body>
+
+        <div id = "divOptions" class = "optionsoverlay">
+
+        <span class = "inputLabel"> Cross Sections:</span><input oninput = "getInputs()" class = "input" type = "NUMBER" id = "inpMediumPanels" value = 4>
+        <span class = "inputLabel"> Short Panels:</span><input oninput = "getInputs()" class = "input" type = "NUMBER" id = "inpShortPanels" value = 6>
+        
+        <span class = "inputLabel"> Filter Length (mm):</span>
+            <label id = "lblLength"></label>
+            <input oninput = "getInputs()" class = "input" type = "range" id = "inpLength" min = "50" max = "1000", value = "450">
+        
+        <span class = "inputLabel"> Filter Depth (mm):</span>
+            <label id = "lblDepth"></label>
+            <input oninput = "getInputs()" class = "input" type = "range" id = "inpDepth" min = "50" max = "1000", value = "450">
+        
+        <span class = "inputLabel"> Filter Height (mm):</span>
+            <label id = "lblHeight"></label>
+            <input oninput = "getInputs()" class = "input" type = "range" id = "inpHeight" min = "10" max = "500", value = "40">
+
+            <div id = "divRadioPlastic" class = "inputLabel">
+                Plastic:<br>
+                <input type="radio" id="1over4" name="plasticdepth" checked>
+                <label for="1/4ths">1/4" Inexpensive Plastic for Smaller Filters</label>
+              
+                <br>
+                <input type="radio" id="3over8" name="plasticdepth">
+                <label for="3/8ths">3/8" Durable Plastic for Larger Filters</label>
+                
+              
+            </div>
+        </div>
+        
+        <script>
+            var panels = [];
+            var longpanels = [];
+            var medpanels = [];
+            var shortpanels = [];
+            var height;
+            var length;
+            var depth;
+            var panelDepth; 
+            var scene;
+        </script>
+
+
+        <script type="module">
+            import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+        </script>
+        
+        <script type = "module" src="THREE/examples/jsm/controls/OrbitControls.js"></script>
+        <!--<script src="js/three.js"></script> -->
+        <script type = "module" src = "js/filters.js"></script>
+        <script src = "js/filterfunctions.js"></script>
+    </body>
+</html>
