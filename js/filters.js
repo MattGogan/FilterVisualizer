@@ -1,5 +1,10 @@
-import * as THREE from '/THREE/build/three.module.js';
-import {OrbitControls} from '/THREE/examples/jsm/controls/OrbitControls.js';
+//CDNs
+import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+
+
+//import * as THREE from '/THREE/build/three.module.js';
+//import {OrbitControls} from '/THREE/examples/jsm/controls/OrbitControls.js';
 
 scene = new THREE.Scene();
 
