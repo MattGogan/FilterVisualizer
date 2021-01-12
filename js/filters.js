@@ -12,6 +12,44 @@ var shinyBlackMat = new THREE.MeshPhongMaterial( {
     shininess: 1000
 });
 
+var scrimMat;
+var foamMat;
+var labelMat;
+var certMat; 
+
+const loader = new THREE.TextureLoader();
+
+loader.load(
+    '/assets/scrim2.jpg',
+    function ( texture ) {
+        scrimMat = new THREE.MeshPhongMaterial( {
+            map: texture,
+            bumpMap: texture,
+            bumpScale: 100.0,
+    })});
+
+loader.load(
+    '/assets/foam2.jpg',
+    function ( texture ) {
+        foamMat = new THREE.MeshPhongMaterial( {
+            map: texture,
+            bumpMap: texture,
+            bumpScale: 100.0,
+    })});
+
+loader.load(
+    '/assets/conformance1.jpg',
+    function ( texture ) {
+        certMat = new THREE.MeshPhongMaterial( {
+            map: texture,
+    })});
+
+loader.load(
+    '/assets/serial1.jpg',
+    function ( texture ) {
+        labelMat = new THREE.MeshPhongMaterial( {
+            map: texture,
+    })});
 
 window.onload = function(){
     console.log("filters.js loaded");
@@ -114,19 +152,33 @@ function animate() {
         
         if(rebuildAll){
             panelDepth = document.querySelector('input[name = "plasticdepth"]:checked').value;
-            console.log("PANEL DEPTH: " + panelDepth);
             rebuildAll = false;
             clearLongPanels();
             clearMedPanels();
             clearShortPanels();
+            clearScrims();
+            clearAccessories();
             makeLongPanels();
+            
+            if(document.getElementById("ckbxShowScrim").checked){
+                makeScrim();
+            }
+
+            if(document.getElementById("ckbxTopGasket").checked){
+                makeTopGasket();
+            }
+            
+            if(document.getElementById("ckbxBotGasket").checked){
+                makeBottomGasket();
+            }
+            
+            if(document.getElementById("ckbxShowLabels").checked){
+                makeLabels();
+            }
+
         }   
 
         if(document.getElementById("inpMediumPanels").value != medpanels.length || rebuildMedPanels){
-            //clearMedPanels();
-            //clearShortPanels();
-            //makeMediumPanels();
-
             clearLongPanels();
             clearMedPanels();
             clearShortPanels();
@@ -148,6 +200,22 @@ animate();
 makeLongPanels();
 
 }
+
+function clearScrims(){
+    for(var i = 0; i<scrims.length; i++){
+        scene.remove(scrims[i]);
+    }
+    scrims = [];
+}
+
+function clearAccessories(){
+    for(var i = 0; i<accessories.length; i++){
+        scene.remove(accessories[i]);
+    }
+    accessories = [];
+}
+
+
 
 function clearLongPanels(){
     for(var i = 0; i<longpanels.length; i++){
@@ -179,7 +247,6 @@ function makeLongPanels(){
     
     for(var i = -1; i<1.1; i+=2){
     var geometry = new THREE.BoxGeometry(length,height,panelDepth);
-    //var material = new THREE.MeshPhongMaterial( { color: 0x00000 } ); 
     var cube = new THREE.Mesh( geometry, shinyBlackMat ); 
     cube.rotateY(Math.PI/2);
 
@@ -203,8 +270,6 @@ function makeMediumPanels(){
     }
     document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
 
-    console.log(panelDepth);
-    console.log(medPanels);
     spacing = (length / (medPanels-1)) - (panelDepth/(medPanels-1));
 
     tmpdepscale = document.getElementById("inpDepth").value/10;
@@ -270,4 +335,113 @@ function makeShortPanels(){
     }
 
     }
+}
+
+
+function makeScrim(){
+        for(var i = -1; i<1.1; i+=2){
+            var geometry = new THREE.BoxGeometry(depth,.05,length);
+            var cube = new THREE.Mesh( geometry, scrimMat ); 
+        
+            cube.position.y = height*.49*i;
+
+            scrims.push(cube);
+            scene.add(cube);
+            }
+}
+
+
+function makeTopGasket(){
+    var gasketWidth = 1.905;
+
+    for(var i = -1; i<2; i+=2){
+        for(var j = -1; j<2; j+=2){
+            var gasket;
+            if(i == -1){
+            var geom = new THREE.BoxGeometry(depth, .635, gasketWidth);
+            gasket = new THREE.Mesh(geom, foamMat);
+            gasket.position.z = (length*.5*j)
+            if(j==-1){
+                gasket.position.z+=(gasketWidth/2);
+            }else{
+                gasket.position.z-=(gasketWidth/2);
+            }
+        
+            }else{
+            var geom = new THREE.BoxGeometry(gasketWidth, .635, length);
+            gasket = new THREE.Mesh(geom, foamMat);
+            gasket.position.x = depth*.5*j;
+            if(j==-1){
+                gasket.position.x+=(gasketWidth/2);
+            }else{
+                gasket.position.x-=(gasketWidth/2);
+            }
+            }
+
+            gasket.position.y += (height/2)+(.635/2);
+
+            accessories.push(gasket);
+            scene.add(gasket);
+        }
+    }
+}
+
+
+function makeBottomGasket(){
+    var gasketWidth = 1.905;
+
+    for(var i = -1; i<2; i+=2){
+        for(var j = -1; j<2; j+=2){
+            var gasket;
+            if(i == -1){
+            var geom = new THREE.BoxGeometry(depth, .635, gasketWidth);
+            gasket = new THREE.Mesh(geom, foamMat);
+            gasket.position.z = (length*.5*j)
+            if(j==-1){
+                gasket.position.z+=(gasketWidth/2);
+            }else{
+                gasket.position.z-=(gasketWidth/2);
+            }
+        
+            }else{
+            var geom = new THREE.BoxGeometry(gasketWidth, .635, length);
+            gasket = new THREE.Mesh(geom, foamMat);
+            gasket.position.x = depth*.5*j;
+            if(j==-1){
+                gasket.position.x+=(gasketWidth/2);
+            }else{
+                gasket.position.x-=(gasketWidth/2);
+            }
+            }
+
+            gasket.position.y -= (height/2)+(.635/2);
+
+            accessories.push(gasket);
+            scene.add(gasket);
+        }
+    }
+}
+
+
+function makeLabels(){
+    var labelGeometry = new THREE.BoxGeometry(10, 3.5, .05);
+    var labelMesh = new THREE.Mesh(labelGeometry, labelMat);
+    labelMesh.position.x += depth/2;
+    var plus = panelDepth/2;
+    labelMesh.position.x+=plus;
+    labelMesh.rotateY(Math.PI/2);
+
+    accessories.push(labelMesh);
+    scene.add(labelMesh);
+
+
+    var certMesh = new THREE.Mesh(labelGeometry, certMat);
+    certMesh.position.z += length/2;
+    //certMesh.position.z += plus;
+    certMesh.position.x = depth/2;
+    certMesh.position.x-=5;
+    certMesh.position.y+=((height/2)-1.75);
+    accessories.push(certMesh);
+    scene.add(certMesh);
+
 }

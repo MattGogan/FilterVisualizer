@@ -7,6 +7,8 @@
             var longpanels = [];
             var medpanels = [];
             var shortpanels = [];
+            let scrims = [];
+            let accessories = [];
             var shortPanels = 0;
             var height;
             var length;
@@ -54,10 +56,10 @@
             </div>
 
             <span class = "inputLabel"> Gasket Top:</span>
-            <input oninput = "getInputs()" class = "ckbx" type = "checkbox">
+            <input oninput = "getInputs()" class = "ckbx" type = "checkbox" id = "ckbxTopGasket">
 
             <span class = "inputLabel"> Gasket Bottom:</span>
-            <input oninput = "getInputs()" class = "ckbx" type = "checkbox">
+            <input oninput = "getInputs()" class = "ckbx" type = "checkbox" id = "ckbxBotGasket">
 
             <br>
             <span class = "inputLabel"> Side Rails:</span>&nbsp;&nbsp;&nbsp;
@@ -72,7 +74,13 @@
 
             <span class = "inputLabel"> Handle Front:</span>
             <input oninput = "getInputs()" class = "ckbx" type = "checkbox">
-        
+
+            <br>
+            <span class = "inputLabel"> Show Scrim?</span>
+            <input oninput = "getInputs()" class = "ckbx" type = "checkbox" id = "ckbxShowScrim">
+
+            <span class = "inputLabel"> Show Labels?</span>
+            <input oninput = "getInputs()" class = "ckbx" type = "checkbox" id = "ckbxShowLabels">            
         </div>
         
         <div id = "divStats" class = "statsoverlay">

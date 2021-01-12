@@ -15,8 +15,6 @@ function getInputs(){
     document.getElementById("lblDepth").innerHTML = document.getElementById("inpDepth").value;
     document.getElementById("lblLength").innerHTML = document.getElementById("inpLength").value;
 
-    console.log(document.querySelector('input[name = "plasticdepth"]:checked').value);
-
     updateDimensions();    
 }
 
