@@ -75,6 +75,7 @@ function executethree(){
     const plane = new THREE.Mesh( geometry, material );
     plane.rotateX(Math.PI/2);
     plane.position.y-=150;
+    plane.receiveShadow = true;
     scene.add( plane );
 
 ///////////////////////////////////////
@@ -83,7 +84,7 @@ function executethree(){
 
 const skyColor = 0xB1E1FF;  // light blue
 const groundColor = 0xB97A20;  // brownish orange
-const intensity = .8;
+const intensity = .6;
 const lighthemi = new THREE.HemisphereLight(skyColor, groundColor, intensity);
 scene.add(lighthemi);
 
@@ -95,14 +96,15 @@ const color = 0xFFFFFF;
 const light = new THREE.DirectionalLight(color, intensity);
 light.position.set(0, 10, 0);
 light.target.position.set(-5, 0, 0);
+light.castShadow = true;
 scene.add(light);
 scene.add(light.target);
 
 const light2 = new THREE.DirectionalLight(color, .3);
-light2.position.set(0, 10, 20);
-light2.target.position.set(5, 0, 0);
-//scene.add(light2);
-//scene.add(light2.target);
+light2.position.set(0, 40, 0);
+light2.target.position.set(0, 0, 0);
+scene.add(light2);
+scene.add(light2.target);
     
 ///////////////////////////////////////
 ///////////    ACTION       //////////
