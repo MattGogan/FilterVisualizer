@@ -18,3 +18,8 @@
     position: absolute;
     background-color:rgba(255,255,255,.5);
 }
+
+.statsoverlay{
+    position:absolute;
+    margin-top: 30%;
+}

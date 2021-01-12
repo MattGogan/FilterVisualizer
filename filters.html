@@ -12,6 +12,7 @@
             var depth;
             var panelDepth; 
             var scene;
+            var tmpdepscale = 45; //awful idea, use tmpscale to save the size of the filter at the point when a panel is added or removed. use this as the scaling factor for sliders.
         </script>
         <script type = "module" src = "js/filters.js"></script>
     </head>
@@ -20,20 +21,20 @@
 
         <div id = "divOptions" class = "optionsoverlay">
 
-        <span class = "inputLabel"> Cross Sections:</span><input class = "input" type = "NUMBER" id = "inpMediumPanels" value = 4>
+        <span class = "inputLabel"> Cross Sections:</span><input class = "input" type = "NUMBER" id = "inpMediumPanels" value = 4 min = 2>
         <span class = "inputLabel"> Short Panels:</span><input class = "input" type = "NUMBER" id = "inpShortPanels" value = 6>
         
         <span class = "inputLabel"> Filter Length (mm):</span>
             <label id = "lblLength"></label>
-            <input class = "input" type = "range" id = "inpLength" min = "50" max = "1000", value = "450">
+            <input oninput = "getInputs()" class = "input" type = "range" id = "inpLength" min = "50" max = "1000", value = "450">
         
         <span class = "inputLabel"> Filter Depth (mm):</span>
             <label id = "lblDepth"></label>
-            <input class = "input" type = "range" id = "inpDepth" min = "50" max = "1000", value = "450">
+            <input oninput = "getInputs()" class = "input" type = "range" id = "inpDepth" min = "50" max = "1000", value = "450">
         
         <span class = "inputLabel"> Filter Height (mm):</span>
             <label id = "lblHeight"></label>
-            <input class = "input" type = "range" id = "inpHeight" min = "10" max = "500", value = "40">
+            <input oninput = "getInputs()" class = "input" type = "range" id = "inpHeight" min = "10" max = "500", value = "40">
 
             <div id = "divRadioPlastic" class = "inputLabel">
                 Plastic:<br>
@@ -48,6 +49,12 @@
             </div>
         </div>
         
+        <div id = "divStats" class = "statsoverlay">
+            Filter Weight??<br>
+            Filter Volume<br>
+            Filter Suraface % Open Area<br>
+            Quote??<br>
+        </div>
 
 
         <script type="module">
@@ -57,6 +64,6 @@
         <script type = "module" src="THREE/examples/jsm/controls/OrbitControls.js"></script>
         <!--<script src="js/three.js"></script> -->
         
-        <!--<script src = "js/filterfunctions.js" defer></script>-->
+        <script src = "js/filterfunctions.js" defer></script>
     </body>
 </html>

@@ -12,12 +12,13 @@ function getInputs(){
     height = document.getElementById("inpHeight").value/10;
     
     if(document.getElementById("1over4").checked){
+        console.log("1/4 Plastic");
         panelDepth = 6.35/10;
     }else{
+        console.log("3/8 Plastic");
         panelDepth = 9.525/10;
     }
     
-
     document.getElementById("lblHeight").innerHTML = document.getElementById("inpHeight").value;
     document.getElementById("lblDepth").innerHTML = document.getElementById("inpDepth").value;
     document.getElementById("lblLength").innerHTML = document.getElementById("inpLength").value;
@@ -38,6 +39,7 @@ function updateDimensions(){
         }
     }
 
+    /*
     if(medpanels.length != medPanels){
         
         for(var i = 0; i<medpanels.length; i++){
@@ -45,9 +47,10 @@ function updateDimensions(){
         }
         makeMediumPanels();
     }
+    */
 
     for(var i = 0; i<medpanels.length; i++){
-        medpanels[i].scale.x = depth/45;
+        medpanels[i].scale.x = depth/tmpdepscale;
         medpanels[i].scale.y = height/4;
         repositionMediumPanels();
     }
@@ -56,7 +59,7 @@ function updateDimensions(){
 
 function repositionMediumPanels(){
     var spacing = length / (medPanels-1);
-    
+
     for(var i = 0; i<medpanels.length; i++){
     medpanels[i].position.z = 0;
     medpanels[i].position.z += i*spacing;

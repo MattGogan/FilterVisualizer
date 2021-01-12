@@ -6,6 +6,7 @@ var panels = [];
 var medPanels = 0;
 var shortPanels = 0;
 
+
 window.onload = function(){
     console.log("filters.js loaded");
     initInputs();
@@ -36,53 +37,10 @@ function initInputs(){
     document.getElementById("lblHeight").innerHTML = document.getElementById("inpHeight").value;
     document.getElementById("lblDepth").innerHTML = document.getElementById("inpDepth").value;
     document.getElementById("lblLength").innerHTML = document.getElementById("inpLength").value;
-    updateDimensions();
 }
 
 
 
-
-
-
-
-function updateDimensions(){
-    console.log("Dimensions updating");
-    for(var i = 0; i<longpanels.length; i++){
-        longpanels[i].scale.x = length/45;
-        longpanels[i].scale.y = height/4;
-        
-        if(i == 0){
-        longpanels[i].position.x = depth/2;
-        }else{
-        longpanels[i].position.x = -1*(depth/2);
-        }
-    }
-
-    if(medpanels.length != medPanels){
-        
-        for(var i = 0; i<medpanels.length; i++){
-            scene.remove(medpanels[i]);
-        }
-        makeMediumPanels();
-    }
-
-    for(var i = 0; i<medpanels.length; i++){
-        medpanels[i].scale.x = depth/45;
-        medpanels[i].scale.y = height/4;
-        repositionMediumPanels();
-    }
-}
-
-
-function repositionMediumPanels(){
-    var spacing = length / (medPanels-1);
-    
-    for(var i = 0; i<medpanels.length; i++){
-    medpanels[i].position.z = 0;
-    medpanels[i].position.z += i*spacing;
-    medpanels[i].position.z -= .5*length;
-    }
-}
 
 
 
@@ -115,9 +73,16 @@ function executethree(){
 
 function animate() { 
         
-        for(var i = 0; i<panels.length; i++){
-            //panels[i].rotateX(.01);
+        if(document.getElementById("inpMediumPanels").value != medpanels.length){
+            for(var i = 0; i<medpanels.length; i++){
+                scene.remove(medpanels[i]);
+            }
+            
+            medpanels = [];
+            medPanels = document.getElementById("inpMediumPanels").value;
+            makeMediumPanels();
         }
+        
         renderer.render( scene, camera );
         
     
@@ -132,7 +97,7 @@ makeMediumPanels();
 
 
 function makeLongPanels(){
-    
+    //LONG PANELS NEED TO BE WIPED AND REPLAcED WITH ANOTHER TMP_LENGTH VAL TO UPDATE PLASTIC DEPTH
     for(var i = -1; i<1.1; i+=2){
     var geometry = new THREE.BoxGeometry(length,height,panelDepth);
     var material = new THREE.MeshBasicMaterial( { color: 0x00000 } ); 
@@ -141,26 +106,34 @@ function makeLongPanels(){
 
     cube.position.x = i*length/2;
 
-    
-
     longpanels.push(cube);
     scene.add(cube);
     }
+
 }
 
 function makeMediumPanels(){
-    var spacing = length / (medPanels-1);
+    console.log("Building Medium Panels");
+
+    var spacing = (length / (medPanels-1)) - (panelDepth/medPanels); //maybe remove everything subtracted
+
+    tmpdepscale = document.getElementById("inpDepth").value/10;
+    console.log("TMP at " + tmpdepscale);
+
+
 
     for(var i = 0; i<medPanels; i++){//var i = -.5*medPanels; i<.5*medPanels;i++
-        var geometry = new THREE.BoxGeometry(length,height,panelDepth);
-        var material = new THREE.MeshBasicMaterial( { color: 0x000000 } ); 
+        var geometry = new THREE.BoxGeometry(depth,height,panelDepth);
+        var material = new THREE.MeshBasicMaterial( { color: 0xFF0000 } ); 
         var cube = new THREE.Mesh( geometry, material ); 
 
         cube.position.z += i*spacing;
-        cube.position.z -= .5*length;
+        cube.position.z -= (.5*length)-(.5*panelDepth);
+
 
         medpanels.push(cube);
 
         scene.add(cube);
     }
+    
 }
