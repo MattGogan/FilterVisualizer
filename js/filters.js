@@ -95,7 +95,7 @@ function executethree(){
 /////////////////////////////////////   
 
     var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
-    var renderer = new THREE.WebGLRenderer({antialias: false});
+    var renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(600, 600);
     const controls = new OrbitControls( camera, renderer.domElement );
 
