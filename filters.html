@@ -10,6 +10,8 @@
             let scrims = [];
             let accessories = [];
             var shortPanels = 0;
+            var medPanels = 0;
+            const longPanels = 2;
             var height;
             var length;
             var depth;
@@ -28,8 +30,8 @@
 
         <div id = "divOptions" class = "optionsoverlay">
 
-        <span class = "inputLabel"> Cross Panels:</span><input class = "input" type = "NUMBER" id = "inpMediumPanels" value = 4 min = 2>
-        <span class = "inputLabel"> Support Panels:</span><input class = "input" type = "NUMBER" id = "inpShortPanels" value = 6 step = 3>
+        <span class = "inputLabel"> Cross Panels:</span><input oninput = "getInputs()" class = "input" type = "NUMBER" id = "inpMediumPanels" value = 4 min = 2>
+        <span class = "inputLabel"> Support Panels:</span><input oninput = "getInputs()" class = "input" type = "NUMBER" id = "inpShortPanels" value = 6 step = 3>
         
         <span class = "inputLabel"> Filter Length (mm):</span>
             <label id = "lblLength"></label>
@@ -84,10 +86,18 @@
         </div>
         
         <div id = "divStats" class = "statsoverlay">
-            Filter Weight??<br>
-            Filter Volume<br>
-            Filter Suraface % Open Area<br>
-            Quote??<br>
+            Filter Weight: <span id = "spanFilterWeight"></span><br> 
+            Filter Volume:  <span id = "spanFilterVolume"></span><br>
+            Filter Carbon Volume:  <span id = "spanCarbonVolume"></span><br>
+            Filter Plastic Volume:  <span id = "spanPlasticVolume"></span><br>
+            Filter Suraface % Open Area:   <span id = "spanOpenArea"></span><br>
+            <br><br>
+            Small Panel Length: <span id = "spanSmallPanelLength"></span>   <br>
+            Medium Panel Length:    <span id = "spanMedPanelLength"></span> <br>
+            Long Panel Length:      <span id = "spanLongPanelLength"></span><br>
+
+            Quote: <span id = "spanQuote"></span><br>
+
             Time To Produce??<br>
         </div>
 

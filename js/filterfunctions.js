@@ -15,8 +15,116 @@ function getInputs(){
     document.getElementById("lblDepth").innerHTML = document.getElementById("inpDepth").value;
     document.getElementById("lblLength").innerHTML = document.getElementById("inpLength").value;
 
-    updateDimensions();    
+    updateDimensions(); 
+       
 }
+
+function updateDimensions(){
+    rebuildAll = true;
+    calculateFilterWeight();
+    calculateFilterVolume();
+    calculateCarbonVolume();
+    calculatePlasticVolume();
+    calculateOpenSurfaceArea();
+    calculateSmallPanelLength();
+    calculateMedPanelLength();
+    calculateLongPanelLength();
+}
+
+///////////////////////////////////////////////////////
+//////////FUNCTIONS FO RJOSH TO BUILD OUT/////////////
+/////////////////////////////////////////////////////
+
+/*
+
+Available spans listed here.  Set inner HTML of these to their respective results.
+
+Filter Weight: <br> <span id = "spanFilterWeight"></span>
+Filter Volume: <br> <span id = "spanFilterVolume"></span>
+Filter Carbon Volume: <br> <span id = "spanCarbonVolume"></span>
+Filter Plastic Volume: <br> <span id = "spanPlasticVolume"></span>
+Filter Suraface % Open Area:<br>   <span id = "spanOpenArea"></span>
+<br><br>
+Small Panel Length: <span id = "spanSmallPanelLength"></span>   <br>
+Medium Panel Length:    <span id = "spanMedPanelLength"></span> <br>
+Long Panel Length:      <span id = "spanLongPanelLength"></span><br>
+*/
+
+//POUNDS
+function calculateFilterWeight(){
+    var filterWeight = 0;
+
+    //Calculations here
+
+    document.getElementById("spanFilterWeight").innerHTML = filterWeight;
+}
+
+
+//CUBIC CENTIMETERS
+function calculateFilterVolume(){
+    var filterVolume = 0;
+
+    //Calculations here
+
+    document.getElementById("spanFilterVolume").innerHTML = filterVolume;
+}
+
+//CUBIC CENTIMETERS
+function calculateCarbonVolume(){
+        var carbonVolume = 0;
+    
+        //Calculations here
+    
+        document.getElementById("spanCarbonVolume").innerHTML = carbonVolume;
+}
+
+function calculatePlasticVolume(){
+
+}
+
+function calculateOpenSurfaceArea(){
+
+}
+
+function calculateSmallPanelLength(){
+
+}
+
+function calculateMedPanelLength(){
+
+}
+
+function calculateLongPanelLength(){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*
@@ -49,9 +157,8 @@ function updateDimensions(){
     rebuildMedPanels = true; //This is CPU intensive as all heck but it fixed issues.
 }*/
 
-function updateDimensions(){
-    rebuildAll = true;
-}
+
+
 
 /*
 

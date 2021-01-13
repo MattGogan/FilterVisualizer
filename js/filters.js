@@ -8,7 +8,6 @@ import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/exampl
 
 scene = new THREE.Scene();
 
-var medPanels = 0;
 var spacing = 0;
 
 var shinyBlackMat = new THREE.MeshPhongMaterial( { 
@@ -95,7 +94,7 @@ function executethree(){
 /////////////////////////////////////   
 
     var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
-    var renderer = new THREE.WebGLRenderer({antialias: true});
+    var renderer = new THREE.WebGLRenderer({antialias: false});
     renderer.setSize(600, 600);
     const controls = new OrbitControls( camera, renderer.domElement );
 
