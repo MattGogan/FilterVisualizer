@@ -7,6 +7,7 @@
             var longpanels = [];
             var medpanels = [];
             var shortpanels = [];
+            var shortpanelreset = false;
             let scrims = [];
             let accessories = [];
             var shortPanels = 0;
@@ -31,18 +32,21 @@
         <div id = "divOptions" class = "optionsoverlay">
 
         <span class = "inputLabel"> Cross Panels:</span><input oninput = "getInputs()" class = "input" type = "NUMBER" id = "inpMediumPanels" value = 4 min = 2>
-        <span class = "inputLabel"> Support Panels:</span><input oninput = "getInputs()" class = "input" type = "NUMBER" id = "inpShortPanels" value = 6 step = 3>
+        <span class = "inputLabel"> Support Panels:</span><br><input oninput = "getInputs()" class = "inputline" type = "NUMBER" id = "inpShortPanels" value = 6 disabled><button class = "sp_btn" onclick = "resetShortPanels()">Reset</button><button class = "sp_btn" onclick = "moreShortPanels()">More</button><br>
         
         <span class = "inputLabel"> Filter Length (mm):</span>
-            <label id = "lblLength"></label>
+            <!--<label id = "lblLength"></label>-->
+            <input oninput = "getInputsAlt()" class = "inputline" type = "NUMBER" id = "lblLength">
             <input oninput = "getInputs()" class = "input" type = "range" id = "inpLength" min = "50" max = "1000", value = "450">
         
         <span class = "inputLabel"> Filter Depth (mm):</span>
-            <label id = "lblDepth"></label>
+            <!--<label id = "lblDepth"></label>-->
+            <input oninput = "getInputsAlt()" class = "inputline" type = "NUMBER" id = "lblDepth">
             <input oninput = "getInputs()" class = "input" type = "range" id = "inpDepth" min = "50" max = "1000", value = "450">
         
         <span class = "inputLabel"> Filter Height (mm):</span>
-            <label id = "lblHeight"></label>
+            <!--<label id = "lblHeight"></label>-->
+            <input oninput = "getInputsAlt()" class = "inputline" type = "NUMBER" id = "lblHeight">
             <input oninput = "getInputs()" class = "input" type = "range" id = "inpHeight" min = "10" max = "500", value = "40">
 
             <div id = "divRadioPlastic" class = "inputLabel">

@@ -78,9 +78,9 @@ function initInputs(){
     console.log(radios)
 
 
-    document.getElementById("lblHeight").innerHTML = document.getElementById("inpHeight").value;
-    document.getElementById("lblDepth").innerHTML = document.getElementById("inpDepth").value;
-    document.getElementById("lblLength").innerHTML = document.getElementById("inpLength").value;
+    document.getElementById("lblHeight").value = document.getElementById("inpHeight").value;
+    document.getElementById("lblDepth").value = document.getElementById("inpDepth").value;
+    document.getElementById("lblLength").value = document.getElementById("inpLength").value;
 }
 
 
@@ -242,6 +242,13 @@ function animate() {
             clearShortPanels();
             makeShortPanels();
         }
+
+        if(shortpanelreset){
+            shortpanelreset = false;
+            document.getElementById("inpShortPanels").value = 0;
+            shortPanels = 0;
+            clearShortPanels();
+        }
         
         renderer.render( scene, camera );
         
@@ -290,7 +297,7 @@ function clearShortPanels(){
         scene.remove(shortpanels[i]);
     }
     shortpanels = [];
-    shortPanels = document.getElementById("inpShortPanels").value;
+    //shortPanels = document.getElementById("inpShortPanels").value;
 }
 
 
@@ -316,12 +323,12 @@ function makeMediumPanels(){
     //console.log("Building Medium Panels");
     rebuildMedPanels = false;
 
-    shortPanels = document.getElementById("inpShortPanels").value;
+    //shortPanels = document.getElementById("inpShortPanels").value;
     if(shortPanels % (medPanels-1) !== 0){
-        shortPanels = 2*(medPanels-1);
-        document.getElementById("inpShortPanels").value = shortPanels;
+        //shortPanels = 2*(medPanels-1);
+        //document.getElementById("inpShortPanels").value = shortPanels;
     }
-    document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
+    //document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
 
     spacing = (length / (medPanels-1)) - (panelDepth/(medPanels-1));
 
@@ -359,9 +366,9 @@ function makeShortPanels(){
         console.log("Trying more panels...");
         shortPanels++;
         document.getElementById("inpShortPanels").value=shortPanels;
-        document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
+        //document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
     }else{
-    document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
+    //document.getElementById("inpShortPanels").setAttribute("step", (medPanels-1));
     //console.log("Building Short Panels");
     for(var i = 0; i<rowsOfShortPanels; i++){
         for(var j = 0; j<shortPanelsPerRow; j++){

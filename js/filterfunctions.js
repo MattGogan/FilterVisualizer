@@ -11,13 +11,34 @@ function getInputs(){
     depth = document.getElementById("inpDepth").value/10;
     height = document.getElementById("inpHeight").value/10;
     
-    document.getElementById("lblHeight").innerHTML = document.getElementById("inpHeight").value;
-    document.getElementById("lblDepth").innerHTML = document.getElementById("inpDepth").value;
-    document.getElementById("lblLength").innerHTML = document.getElementById("inpLength").value;
+    document.getElementById("lblHeight").value = document.getElementById("inpHeight").value;
+    document.getElementById("lblDepth").value = document.getElementById("inpDepth").value;
+    document.getElementById("lblLength").value = document.getElementById("inpLength").value;
 
     updateDimensions(); 
        
 }
+
+
+/*
+Alternative getInputs function which prioritizes the value in the textboxes rather than the sliders.
+*/
+function getInputsAlt(){
+    medPanels = document.getElementById("inpMediumPanels").value;
+    shortPanels = document.getElementById("inpShortPanels").value;
+    length = document.getElementById("lblLength").value/10;
+    depth = document.getElementById("lblDepth").value/10;
+    height = document.getElementById("lblHeight").value/10;
+    
+    document.getElementById("inpHeight").value = document.getElementById("lblHeight").value;
+    document.getElementById("inpDepth").value = document.getElementById("lblDepth").value;
+    document.getElementById("inpLength").value = document.getElementById("lblLength").value;
+
+    updateDimensions(); 
+       
+}
+
+
 
 function updateDimensions(){
     rebuildAll = true;
@@ -30,6 +51,21 @@ function updateDimensions(){
     calculateMedPanelLength();
     calculateLongPanelLength();
 }
+
+
+
+function resetShortPanels(){
+    shortpanelreset = true;
+}
+
+function moreShortPanels(){
+    var int = document.getElementById("inpShortPanels").value;
+    int = parseInt(int) + 1;
+    
+    document.getElementById("inpShortPanels").value = int;
+    shortPanels = int;
+}
+
 
 ///////////////////////////////////////////////////////
 //////////FUNCTIONS FO RJOSH TO BUILD OUT/////////////
