@@ -50,6 +50,7 @@ function updateDimensions(){
     calculateSmallPanelLength();
     calculateMedPanelLength();
     calculateLongPanelLength();
+    calculateCutHeight();
 }
 
 
@@ -71,28 +72,26 @@ function moreShortPanels(){
 //////////FUNCTIONS FO RJOSH TO BUILD OUT/////////////
 /////////////////////////////////////////////////////
 
-/*
 
-Available spans listed here.  Set inner HTML of these to their respective results.
-
-Filter Weight: <br> <span id = "spanFilterWeight"></span>
-Filter Volume: <br> <span id = "spanFilterVolume"></span>
-Filter Carbon Volume: <br> <span id = "spanCarbonVolume"></span>
-Filter Plastic Volume: <br> <span id = "spanPlasticVolume"></span>
-Filter Suraface % Open Area:<br>   <span id = "spanOpenArea"></span>
-<br><br>
-Small Panel Length: <span id = "spanSmallPanelLength"></span>   <br>
-Medium Panel Length:    <span id = "spanMedPanelLength"></span> <br>
-Long Panel Length:      <span id = "spanLongPanelLength"></span><br>
-*/
-
+var medPanelLength = 0;
+var longPanelLength = 0
+var longPanelArea = 0
+var shortPanelLength = 0
+var openSurfaceArea = 0;
+var intVolume = 0;
+var carbonVolume = 0;
+var plasticVolume = 0;
 //POUNDS
 function calculateFilterWeight(){
     var filterWeight = 0;
 
-    //Calculations here
+    //This uses ACI plastic as a baseline. (Density of 0.646)
 
-    document.getElementById("spanFilterWeight").innerHTML = filterWeight;
+    var carbonDensity = 0.646;
+    filterWeight = carbonDensity * length*depth*height;
+    filterWeight /= 454;
+
+    document.getElementById("spanFilterWeight").innerHTML = filterWeight.toFixed(1);
 }
 
 
@@ -102,138 +101,58 @@ function calculateFilterVolume(){
 
     //Calculations here
 
-    document.getElementById("spanFilterVolume").innerHTML = filterVolume;
+    filterVolume = length * depth * height;
+    //console.log("Filter Volume: " + filterVolume);
+
+    document.getElementById("spanFilterVolume").innerHTML = filterVolume.toFixed(1) + 'cc';
 }
 
 //CUBIC CENTIMETERS
 function calculateCarbonVolume(){
-        var carbonVolume = 0;
-    
-        //Calculations here
-    
-        document.getElementById("spanCarbonVolume").innerHTML = carbonVolume;
+  
 }
 
 function calculatePlasticVolume(){
-
+   
 }
 
 function calculateOpenSurfaceArea(){
+    openFaceArea = (length * depth) - (((longPanelLength*panelDepth)*longPanels)+((medPanelLength*panelDepth)*medPanels)+((shortPanelLength*panelDepth)*shortPanels));
+    console.log("Open Face Area: " + openFaceArea);
+    var totalFaceArea = (length)*(depth);
+    console.log(totalFaceArea)
+    var percentOpen = openFaceArea/totalFaceArea;
 
+    document.getElementById("spanOpenArea").innerHTML = percentOpen.toFixed(5);
 }
 
 function calculateSmallPanelLength(){
+    var chambersPerRow = medPanels - 1; //The ammount of chambers in a row is equal to the ammount of medium panels - 1
+    //var chambers = 1.5 * shortPanels; //There are 1.5 times more chambers than small panels
+    var shortPanelsPerRow = chambersPerRow;
+    shortPanelLength = (length - (medPanels * panelDepth))/shortPanelsPerRow;
+    //console.log("Short Panel Length: " + shortPanelLength*10);
 
+    document.getElementById("spanSmallPanelLength").innerHTML = (shortPanelLength*10).toFixed(1) + 'mm';
 }
 
 function calculateMedPanelLength(){
+     medPanelLength = (depth) - (2 * panelDepth);
 
+    document.getElementById("spanMedPanelLength").innerHTML = (medPanelLength*10).toFixed(1) + 'mm';
 }
 
 function calculateLongPanelLength(){
+     longPanelLength = length;
+     longPanelArea = length * height;
+     //console.log("Long Panel Length: " + longPanelLength*10);
 
+    document.getElementById("spanLongPanelLength").innerHTML = (longPanelLength*10).toFixed(1) + 'mm';
 }
 
+function calculateCutHeight(){
+    var cutheight = document.getElementById('lblHeight').value;
+    cutheight = parseInt(cutheight) + 3;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-function updateDimensions(){
-    console.log("Dimensions updating");
-    for(var i = 0; i<longpanels.length; i++){
-        longpanels[i].scale.x = length/tmplenscale;
-        longpanels[i].scale.y = height/4;  //leaving this as 45 will break the program.  need to redraw EVERYTHING, not just medium and small panels.
-        
-        console.log("DEPTH: " + depth);
-        if(i == 0){
-        longpanels[i].position.x = depth/2;
-        }else{
-        longpanels[i].position.x = -1*(depth/2);
-        }
-    }
-
-    for(var i = 0; i<medpanels.length; i++){
-        medpanels[i].scale.x = depth/tmpdepscale;
-        medpanels[i].scale.y = height/tmpheiscale;
-        repositionMediumPanels();
-    }
-
-    for(var i = 0; i < shortpanels.length; i++){
-        shortpanels[i].scale.x = length/tmplenscale;
-        shortpanels[i].scale.y = height/tmpheiscale;
-        repositionShortPanels();
-    }
-
-    rebuildMedPanels = true; //This is CPU intensive as all heck but it fixed issues.
-}*/
-
-
-
-
-/*
-
-function repositionMediumPanels(){
-    spacing = (length / (medPanels-1)) - (panelDepth/medPanels);
-
-    for(var i = 0; i<medpanels.length; i++){
-    medpanels[i].position.z = 0;
-    medpanels[i].position.z += i*spacing;
-    medpanels[i].position.z -= (.5*length)-(.5*panelDepth);
-    }
+   document.getElementById("spanCutHeight").innerHTML = cutheight;
 }
-
-function clearCanvasThenGetInputs(){
-    rebuildAll = true;
-}
-
-
-function repositionShortPanels(){
-    var panelIndex = 0;
-    var shortPanelsPerRow = medPanels - 1;
-    var rowsOfShortPanels = shortPanels / (medPanels-1);
-    var shortPanelRowSpacing = depth / (rowsOfShortPanels+1);
-
-    for(var i = 0; i<rowsOfShortPanels; i++){
-        for(var j = 0; j<shortPanelsPerRow; j++){
-
-            //z is spacing between mediums
-            shortpanels[panelIndex].position.z = (-length/2)+(.5*spacing)+(.5*panelDepth);
-            shortpanels[panelIndex].position.z += j*spacing;
-
-            //x is spacing between rows of short panels
-            
-            shortpanels[panelIndex].position.x = -depth/2;
-            shortpanels[panelIndex].position.x += (i+1)*shortPanelRowSpacing;
-
-            panelIndex++;
-        }
-    }
-
-}
-*/
